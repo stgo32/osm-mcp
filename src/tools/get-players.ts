@@ -2,7 +2,7 @@ import { z } from "zod";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { OsmProvider } from "../services/osm-provider.js";
 
-export function registerGetPlayersTool(
+export function getPlayersTool(
   server: McpServer,
   osm: OsmProvider
 ): void {

@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { OsmProvider } from "../services/osm-provider.js";
 
-export function registerGetUserTool(
+export function getUserTool(
   server: McpServer,
   osm: OsmProvider
 ): void {
