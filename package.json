@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "tsc --noEmit",
-    "start": "node build/index.js"
+    "start": "node --env-file=.env build/index.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.27.1",

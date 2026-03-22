@@ -38,8 +38,9 @@ export function registerGetPlayersTool(
       } catch (error) {
         const message =
           error instanceof Error ? error.message : String(error);
+        console.error('[GetPlayersTool] Error: ', error);
         return {
-          isError: true,
+          isError: true,  
           content: [{ type: "text" as const, text: `Error: ${message}` }],
         };
       }

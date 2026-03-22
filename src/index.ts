@@ -4,6 +4,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { OsmProvider } from "./services/osm-provider.js";
 import { registerGetPlayersTool } from "./tools/get-players.js";
+import { registerGetUserTool } from "./tools/get-user.js";
 
 const username = process.env.OSM_USERNAME;
 const password = process.env.OSM_PASSWORD;
@@ -24,6 +25,7 @@ const server = new McpServer({
 });
 
 registerGetPlayersTool(server, osm);
+registerGetUserTool(server, osm);
 
 const transport = new StdioServerTransport();
 await server.connect(transport);

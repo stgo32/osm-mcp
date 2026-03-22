@@ -20,7 +20,9 @@ Requires your OSM credentials as environment variables:
 | `OSM_CLIENT_ID`     | OSM API client ID        |
 | `OSM_CLIENT_SECRET` | OSM API client secret    |
 
-## Register with Claude Code
+## Registration
+
+### Claude Code
 
 ```bash
 claude mcp add osm-mcp \
@@ -31,6 +33,31 @@ claude mcp add osm-mcp \
   --env OSM_CLIENT_SECRET=<your_client_secret> \
   -- node /path/to/osm-mcp/build/index.js
 ```
+
+### Claude Desktop
+
+Edit `~/Library/Application Support/Claude/claude_desktop_config.json` and add:
+
+```json
+{
+  "mcpServers": {
+    "osm-mcp": {
+      "command": "node",
+      "args": ["/absolute/path/to/osm-mcp/build/index.js"],
+      "env": {
+        "OSM_USERNAME": "<your_username>",
+        "OSM_PASSWORD": "<your_password>",
+        "OSM_CLIENT_ID": "<your_client_id>",
+        "OSM_CLIENT_SECRET": "<your_client_secret>"
+      }
+    }
+  }
+}
+```
+
+Then restart Claude Desktop.
+
+**Note:** Claude Desktop does not expand `~` — always use the full absolute path (e.g. `/Users/yourname/osm-mcp/build/index.js`).
 
 ## Available Tools
 
