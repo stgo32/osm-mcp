@@ -102,3 +102,36 @@ export interface OSMUser {
   profile: UserProfile;
   connections: Connection[];
 }
+
+export interface TeamTacticsPayload {
+  attack: number;
+  defense: number;
+  midField: number;
+  style: number;
+  overallMatchTactics: number;
+  marking: boolean;
+  mentality: number;
+  offSideTrap: boolean;
+  pressing: number;
+  tempo: number;
+  formation: number;
+  formationDetail: string;
+}
+
+export interface TeamTactics {
+  id: string;
+  teamId: number;
+  leagueId: number;
+  formation: number;
+  formationDetail: string;
+  style: number;
+  overallMatchTactics: number;
+  mentality: number;
+  pressing: number;
+  tempo: number;
+  marking: boolean;
+  offsideTrap: boolean;
+  attack: number;
+  midfield: number;
+  defense: number;
+}

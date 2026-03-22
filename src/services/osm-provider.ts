@@ -1,4 +1,4 @@
-import { TokenResponse, Player, OSMUser } from "../types.js";
+import { TokenResponse, Player, OSMUser, TeamTactics, TeamTacticsPayload } from "../types.js";
 
 const BASE_URL = "https://web-api.onlinesoccermanager.com";
 
@@ -71,6 +71,50 @@ export class OsmProvider {
     }
 
     return (await res.json()) as Player[];
+  }
+
+  async getTeamTactics(
+    leagueId: string,
+    teamId: string,
+  ): Promise<TeamTactics> {
+    const res = await this.authenticatedFetch(
+      `${BASE_URL}/api/v1/leagues/${leagueId}/teams/${teamId}/teamtactics`,
+      {
+        method: "GET",
+      }
+    );
+
+    if (!res.ok) {
+      const text = await res.text().catch(() => "");
+      throw new Error(`OSM API error (${res.status}): ${text}`);
+    }
+
+    return (await res.json()) as TeamTactics;
+  }
+
+  async editTeamTactics(
+    leagueId: string,
+    teamId: string,
+    tactics: TeamTacticsPayload
+  ): Promise<TeamTactics> {
+    const body = new URLSearchParams();
+    for (const [key, value] of Object.entries(tactics)) {
+      body.append(key, String(value));
+    }
+    const res = await this.authenticatedFetch(
+      `${BASE_URL}/api/v1/leagues/${leagueId}/teams/${teamId}/teamtactics`,
+      {
+        method: "PUT",
+        body: body.toString(),
+      }
+    );
+
+    if (!res.ok) {
+      const text = await res.text().catch(() => "");
+      throw new Error(`OSM API error (${res.status}): ${text}`);
+    }
+
+    return (await res.json()) as TeamTactics;
   }
 
   private async authenticatedFetch(
