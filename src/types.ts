@@ -56,3 +56,49 @@ export interface Player {
   leagueTypeId: number;
   themeId: number;
 }
+
+export interface TeamSlot {
+  id: number;
+  teamId: number;
+  teamName: string;
+  leagueId: number;
+  leagueName: string;
+  countryId: number;
+  countryName: string;
+  isModerator: boolean;
+  isUnlocked: boolean;
+  daysToUnlock: number;
+  leagueTypeId: number;
+  day: number;
+  daysInLeague: number;
+  position: number;
+  goals: number;
+  playerCount: number;
+  managerCount: number;
+  isFinished: boolean;
+  canManage: boolean;
+}
+
+export interface UserProfile {
+  userId: number;
+  userName: string;
+  assets: PlayerAsset[];
+  rank: number;
+  medals: number;
+  points: number;
+  xp: number;
+  level: number;
+}
+
+export interface Connection {
+  type: string;
+  id: string;
+  name: string;
+}
+
+export interface OSMUser {
+  teamslots: TeamSlot[];
+  email: string;
+  profile: UserProfile;
+  connections: Connection[];
+}

@@ -1,4 +1,4 @@
-import { TokenResponse, Player } from "../types.js";
+import { TokenResponse, Player, OSMUser } from "../types.js";
 
 const BASE_URL = "https://web-api.onlinesoccermanager.com";
 
@@ -6,7 +6,17 @@ const COMMON_HEADERS: Record<string, string> = {
   accept: "application/json; charset=utf-8",
   "accept-language": "en-GB, en-GB",
   appversion: "3.243.0",
+  origin: "https://en.onlinesoccermanager.com",
   platformid: "11",
+  priority: "u=1, i",
+  referer: "https://en.onlinesoccermanager.com/",
+  "sec-ch-ua":
+    '"Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"',
+  "sec-ch-ua-mobile": "?0",
+  "sec-ch-ua-platform": '"macOS"',
+  "sec-fetch-dest": "empty",
+  "sec-fetch-mode": "cors",
+  "sec-fetch-site": "same-site",
   "user-agent":
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
 };
@@ -35,6 +45,19 @@ export class OsmProvider {
     this.password = password;
     this.clientId = clientId;
     this.clientSecret = clientSecret;
+  }
+
+  async getUser(): Promise<OSMUser> {
+    const res = await this.authenticatedFetch(
+      `${BASE_URL}/api/v1.1/user?fields=teamslots%2Cemail%2Cprofile%2Cconnections`
+    );
+
+    if (!res.ok) {
+      const text = await res.text().catch(() => "");
+      throw new Error(`OSM API error (${res.status}): ${text}`);
+    }
+
+    return (await res.json()) as OSMUser;
   }
 
   async getPlayers(leagueId: string, teamId: string): Promise<Player[]> {
